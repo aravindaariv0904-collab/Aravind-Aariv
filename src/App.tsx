@@ -813,7 +813,7 @@ export default function App() {
             </p>
             <div className="connect-links">
               <a href="mailto:aravindaariv0904@gmail.com" className="connect-link primary">✉️ Send Email</a>
-              <a href="https://linkedin.com/in/vejanda-aravind-aariv-4bb641379" target="_blank" rel="noreferrer" className="connect-link secondary">💼 LinkedIn</a>
+              <a href="https://www.linkedin.com/in/vejandla-aravind-aariv-4bb641379/" target="_blank" rel="noreferrer" className="connect-link secondary">💼 LinkedIn</a>
               <a href="https://github.com/aravindaariv0904-collab" target="_blank" rel="noreferrer" className="connect-link secondary">⌨️ GitHub</a>
               <a href="https://www.instagram.com/aravindaariv/" target="_blank" rel="noreferrer" className="connect-link secondary">📸 Instagram</a>
             </div>
