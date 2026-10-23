@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, FileDown, Send, Sparkles } from 'lucide-react';
+import { Menu, X, FileDown, Send } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface NavbarProps {
@@ -45,6 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
     { href: '#home', label: 'Home' },
     { href: '#projects', label: 'Projects' },
     { href: '#about', label: 'About' },
+    { href: '#journey', label: 'Journey' },
     { href: '#experience', label: 'Experience' },
     { href: '#leadership', label: 'Leadership' },
     { href: '#skills', label: 'Tech Stack' },
@@ -61,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
     <>
       <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
         <div className="navbar-container">
-          <a href="#home" className="navbar-brand">
+          <a href="#home" className="navbar-brand interactive">
             <span className="brand-dot" />
             <span className="brand-text">{PERSONAL_INFO.shortName}</span>
             <span className="brand-badge">AI/ML</span>
@@ -77,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      className={`nav-link ${isActive ? 'active' : ''}`}
+                      className={`nav-link interactive ${isActive ? 'active' : ''}`}
                     >
                       {link.label}
                     </a>
@@ -91,7 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             <a
               href={PERSONAL_INFO.resumePdfUrl}
               download="Vejandla_Aravind_Aariv_Resume.pdf"
-              className="btn-resume-header"
+              className="btn-resume-header interactive"
               title="Download verified resume PDF"
             >
               <FileDown size={15} />
@@ -100,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
             <a
               href="#contact"
-              className="btn-contact-header"
+              className="btn-contact-header interactive"
             >
               <Send size={14} />
               <span>Hire Me</span>
@@ -109,7 +110,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             {/* Mobile Hamburger Button */}
             <button
               type="button"
-              className="mobile-menu-toggle"
+              className="mobile-menu-toggle interactive"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-nav-drawer"
               aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
@@ -121,66 +122,73 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
         </div>
       </header>
 
-      {/* Mobile Drawer Backdrop */}
+      {/* Accessible Mobile Drawer Overlay */}
       <div
         className={`mobile-drawer-backdrop ${mobileMenuOpen ? 'open' : ''}`}
-        onClick={() => setMobileMenuOpen(false)}
         aria-hidden="true"
+        onClick={() => setMobileMenuOpen(false)}
       />
 
-      {/* Mobile Slide-in Drawer */}
+      {/* Mobile Drawer */}
       <aside
         id="mobile-nav-drawer"
         className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`}
         aria-label="Mobile Navigation"
+        aria-hidden={!mobileMenuOpen}
       >
-        <div className="drawer-header">
-          <div className="drawer-brand">
-            <Sparkles size={18} className="text-indigo" />
-            <span>{PERSONAL_INFO.shortName}</span>
+        <div className="mobile-drawer-header">
+          <div className="mobile-brand">
+            <span className="brand-dot" />
+            <span className="brand-text">{PERSONAL_INFO.shortName}</span>
           </div>
           <button
             type="button"
-            className="drawer-close-btn"
-            onClick={() => setMobileMenuOpen(false)}
+            className="mobile-drawer-close interactive"
             aria-label="Close menu"
+            onClick={() => setMobileMenuOpen(false)}
           >
-            <X size={20} />
+            <X size={24} />
           </button>
         </div>
 
-        <div className="drawer-body">
-          <ul className="drawer-nav-list">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="drawer-nav-link"
-                  onClick={handleLinkClick}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+        <nav className="mobile-drawer-nav">
+          <ul className="mobile-nav-list">
+            {navLinks.map((link) => {
+              const sectionId = link.href.replace('#', '');
+              const isActive = activeSection === sectionId;
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className={`mobile-nav-link interactive ${isActive ? 'active' : ''}`}
+                    onClick={handleLinkClick}
+                  >
+                    <span>{link.label}</span>
+                    {isActive && <span className="active-dot" />}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
-        </div>
+        </nav>
 
-        <div className="drawer-footer">
+        <div className="mobile-drawer-footer">
           <a
             href={PERSONAL_INFO.resumePdfUrl}
             download="Vejandla_Aravind_Aariv_Resume.pdf"
-            className="drawer-btn-primary"
+            className="btn-mobile-resume interactive"
             onClick={handleLinkClick}
           >
-            <FileDown size={18} />
-            <span>Download Verified Resume</span>
+            <FileDown size={16} />
+            <span>Download Resume PDF</span>
           </a>
+
           <a
             href="#contact"
-            className="drawer-btn-secondary"
+            className="btn-mobile-contact interactive"
             onClick={handleLinkClick}
           >
-            <Send size={18} />
+            <Send size={16} />
             <span>Get in Touch</span>
           </a>
         </div>

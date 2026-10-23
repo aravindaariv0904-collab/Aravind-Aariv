@@ -1,8 +1,10 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { Marquee } from './components/Marquee';
 import { Projects } from './components/Projects';
 import { About } from './components/About';
+import { Journey } from './components/Journey';
 import { Experience } from './components/Experience';
 import { Leadership } from './components/Leadership';
 import { Skills } from './components/Skills';
@@ -10,6 +12,7 @@ import { Certifications } from './components/Certifications';
 import { ResearchInterests } from './components/ResearchInterests';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { MagicCursor } from './components/MagicCursor';
 
 // Dynamic lazy import: Three.js chunk loads only when motion is enabled
 const ThreeBackground = lazy(() =>
@@ -47,6 +50,9 @@ export default function App() {
 
   return (
     <>
+      {/* Magic Cursor with fluid trailing ring */}
+      <MagicCursor />
+
       {/* Skip to Content for Screen Readers & Keyboard Users */}
       <a href="#main" className="skip-to-content">
         Skip to main content
@@ -65,10 +71,13 @@ export default function App() {
       {/* Main Content Sections */}
       <main id="main">
         <Hero />
+        <Marquee />
         <div className="section-divider" />
         <Projects />
         <div className="section-divider" />
         <About />
+        <div className="section-divider" />
+        <Journey />
         <div className="section-divider" />
         <Experience />
         <div className="section-divider" />
@@ -79,6 +88,7 @@ export default function App() {
         <Certifications />
         <div className="section-divider" />
         <ResearchInterests />
+        <Marquee reverse />
         <div className="section-divider" />
         <Contact />
       </main>
