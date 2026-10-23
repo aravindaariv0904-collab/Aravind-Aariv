@@ -40,19 +40,19 @@ export const SocialProfileCards: React.FC = () => {
   const renderIcon = (type: SocialProfile['iconType'], color: string) => {
     switch (type) {
       case 'linkedin':
-        return <LinkedinIcon size={20} className="text-[#38bdf8]" />;
+        return <LinkedinIcon size={20} className="text-cyan" />;
       case 'github':
-        return <GithubIcon size={20} className="text-[#a3e635]" />;
+        return <GithubIcon size={20} className="text-lime" />;
       case 'discord':
-        return <DiscordIcon size={20} className="text-[#818cf8]" />;
+        return <DiscordIcon size={20} className="text-indigo" />;
       case 'email':
-        return <Mail size={20} className="text-[#34d399]" />;
+        return <Mail size={20} className="text-emerald" />;
       case 'portfolio':
-        return <PortfolioIcon size={20} className="text-[#c084fc]" />;
+        return <PortfolioIcon size={20} className="text-violet" />;
       case 'credly':
-        return <CredlyIcon size={20} className="text-[#f97316]" />;
+        return <CredlyIcon size={20} className="text-amber" />;
       case 'google-dev':
-        return <GoogleDevIcon size={20} className="text-[#60a5fa]" />;
+        return <GoogleDevIcon size={20} className="text-cyan" />;
       default:
         return <Sparkles size={20} style={{ color }} />;
     }
@@ -86,13 +86,13 @@ export const SocialProfileCards: React.FC = () => {
           return (
             <div
               key={profile.id}
-              className={`social-profile-card ${profile.isConfigured ? 'configured' : 'unconfigured'}`}
+              className={`social-profile-card interactive ${profile.isConfigured ? 'configured' : 'unconfigured'}`}
             >
               {/* Card Header: Icon + Badge + Arrow */}
               <div className="profile-card-top">
                 <div 
                   className="profile-icon-box"
-                  style={{ boxShadow: `0 0 20px ${profile.accentColor}18` }}
+                  style={{ boxShadow: `0 0 16px ${profile.accentColor}18` }}
                 >
                   {renderIcon(profile.iconType, profile.accentColor)}
                 </div>
@@ -115,7 +115,7 @@ export const SocialProfileCards: React.FC = () => {
                     ) : null
                   ) : (
                     <span title="Verification pending">
-                      <Clock size={13} className="text-amber-400" />
+                      <Clock size={13} className="text-amber" />
                     </span>
                   )}
                 </div>
@@ -164,7 +164,7 @@ export const SocialProfileCards: React.FC = () => {
                       target="_blank"
                       rel="noreferrer"
                       className="profile-action-link primary"
-                      style={{ width: 'auto', padding: '0.5rem 0.65rem' }}
+                      style={{ width: 'auto', padding: '0.55rem 0.65rem' }}
                       title="Open Discord web app"
                       aria-label="Open Discord in new tab"
                     >
@@ -186,7 +186,7 @@ export const SocialProfileCards: React.FC = () => {
                       type="button"
                       onClick={(e) => handleCopy(profile.id, profile.copyValue || 'aariv948@gmail.com', e)}
                       className="profile-action-link primary"
-                      style={{ width: 'auto', padding: '0.5rem 0.65rem' }}
+                      style={{ width: 'auto', padding: '0.55rem 0.65rem' }}
                       title={isCopied ? 'Copied!' : 'Copy email address'}
                       aria-label="Copy email address"
                     >

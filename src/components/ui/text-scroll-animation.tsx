@@ -1,11 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 
-interface TextScrollAnimationProps {
+export interface TextScrollHeadingProps {
   heading?: string;
   highlightWords?: string[];
-  subheading?: string;
-  badge?: string;
   className?: string;
 }
 
@@ -26,26 +24,26 @@ const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
   scrollYProgress,
   reducedMotion,
 }) => {
-  // Calculate subtle initial spread based on character index relative to center
+  // Subtle initial spread based on character position
   const center = totalChars / 2;
   const distanceFromCenter = index - center;
-  const initialX = Math.sign(distanceFromCenter) * Math.min(Math.abs(distanceFromCenter) * 3, 28);
-  const initialY = (index % 2 === 0 ? -1 : 1) * 12;
-  const initialRotate = (index % 2 === 0 ? -1 : 1) * 8;
+  const initialX = Math.sign(distanceFromCenter) * Math.min(Math.abs(distanceFromCenter) * 2.5, 20);
+  const initialY = (index % 2 === 0 ? -1 : 1) * 8;
+  const initialRotate = (index % 2 === 0 ? -1 : 1) * 6;
 
-  // Stagger activation window based on index
+  // Stagger window based on index
   const startWindow = 0.05 + (index / totalChars) * 0.25;
-  const endWindow = Math.min(startWindow + 0.45, 0.95);
+  const endWindow = Math.min(startWindow + 0.45, 0.92);
 
-  const x = useTransform(scrollYProgress, [0, startWindow, endWindow], [initialX, initialX * 0.5, 0]);
-  const y = useTransform(scrollYProgress, [0, startWindow, endWindow], [initialY, initialY * 0.4, 0]);
-  const rotateZ = useTransform(scrollYProgress, [0, startWindow, endWindow], [initialRotate, initialRotate * 0.3, 0]);
-  const scale = useTransform(scrollYProgress, [0, startWindow, endWindow], [0.86, 0.92, 1]);
-  const opacity = useTransform(scrollYProgress, [0, startWindow, endWindow], [0.25, 0.65, 1]);
+  const x = useTransform(scrollYProgress, [0, startWindow, endWindow], [initialX, initialX * 0.4, 0]);
+  const y = useTransform(scrollYProgress, [0, startWindow, endWindow], [initialY, initialY * 0.3, 0]);
+  const rotateZ = useTransform(scrollYProgress, [0, startWindow, endWindow], [initialRotate, initialRotate * 0.25, 0]);
+  const scale = useTransform(scrollYProgress, [0, startWindow, endWindow], [0.9, 0.95, 1]);
+  const opacity = useTransform(scrollYProgress, [0, startWindow, endWindow], [0.35, 0.7, 1]);
 
   if (reducedMotion) {
     return (
-      <span className={`text-scroll-char ${isHighlight ? 'highlight' : ''}`}>
+      <span className={isHighlight ? 'text-lime' : ''}>
         {char}
       </span>
     );
@@ -63,7 +61,7 @@ const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
         transformOrigin: '50% 50%',
         willChange: 'transform, opacity',
       }}
-      className={`text-scroll-char ${isHighlight ? 'highlight' : ''}`}
+      className={isHighlight ? 'text-lime' : ''}
       aria-hidden="true"
     >
       {char}
@@ -71,14 +69,12 @@ const AnimatedCharacter: React.FC<AnimatedCharacterProps> = ({
   );
 };
 
-export const TextScrollAnimation: React.FC<TextScrollAnimationProps> = ({
+export const TextScrollHeading: React.FC<TextScrollHeadingProps> = ({
   heading = "LET'S BUILD SOMETHING INTELLIGENT.",
   highlightWords = ['SOMETHING', 'INTELLIGENT.'],
-  subheading = "Interested in AI, Generative AI, intelligent agents, and impactful software? Let's connect, exchange ideas, and explore opportunities to build something meaningful.",
-  badge = 'DIRECT ENGAGEMENT & PROFILE ECOSYSTEM',
   className = '',
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLHeadingElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
 
@@ -88,36 +84,22 @@ export const TextScrollAnimation: React.FC<TextScrollAnimationProps> = ({
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start 0.92', 'start 0.35'],
+    offset: ['start 0.95', 'start 0.45'],
   });
 
-  // Supporting text fade in
-  const subOpacity = useTransform(scrollYProgress, [0.35, 0.85], [0.4, 1]);
-  const subY = useTransform(scrollYProgress, [0.35, 0.85], [16, 0]);
-
-  // Break heading into words, then characters
   const words = heading.split(' ');
   let charCounter = 0;
   const totalChars = heading.replace(/\s+/g, '').length;
 
   return (
-    <div
+    <h2
       ref={containerRef}
-      className={`text-scroll-hero-wrapper ${className}`}
+      className={`section-heading-text ${className}`}
+      style={{ overflow: 'hidden' }}
+      aria-label={heading}
     >
-      {/* Eyebrow Badge */}
-      {badge && (
-        <div className="text-scroll-badge">
-          <span className="text-scroll-pulse-dot" />
-          <span>{badge}</span>
-        </div>
-      )}
-
-      {/* Accessible Hidden Full Text for Screen Readers */}
-      <h2 className="sr-only">{heading}</h2>
-
-      {/* Animated Visual Typography */}
-      <div className="text-scroll-display" aria-hidden="true">
+      {/* Visual character reveal */}
+      <span style={{ display: 'inline' }}>
         {words.map((word, wordIdx) => {
           const isHighlight = highlightWords.some(
             (hw) => hw.toUpperCase() === word.toUpperCase()
@@ -126,13 +108,13 @@ export const TextScrollAnimation: React.FC<TextScrollAnimationProps> = ({
           const wordChars = word.split('');
 
           return (
-            <React.Fragment key={`word-frag-${wordIdx}`}>
-              <span className="text-scroll-word">
+            <React.Fragment key={`scroll-word-${wordIdx}`}>
+              <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
                 {wordChars.map((char) => {
                   const charIdx = charCounter++;
                   return (
                     <AnimatedCharacter
-                      key={`char-${charIdx}-${char}`}
+                      key={`scroll-char-${charIdx}-${char}`}
                       char={char}
                       index={charIdx}
                       totalChars={totalChars}
@@ -147,21 +129,9 @@ export const TextScrollAnimation: React.FC<TextScrollAnimationProps> = ({
             </React.Fragment>
           );
         })}
-      </div>
-
-      {/* Supporting Copy */}
-      {subheading && (
-        <motion.p
-          style={
-            mounted && !shouldReduceMotion
-              ? { opacity: subOpacity, y: subY }
-              : { opacity: 1, y: 0 }
-          }
-          className="text-scroll-subheading"
-        >
-          {subheading}
-        </motion.p>
-      )}
-    </div>
+      </span>
+    </h2>
   );
 };
+
+export const TextScrollAnimation = TextScrollHeading;

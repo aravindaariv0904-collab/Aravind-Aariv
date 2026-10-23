@@ -1,5 +1,4 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { ReactLenis } from 'lenis/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
@@ -20,12 +19,10 @@ const ThreeBackground = lazy(() =>
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [shouldLoadThree, setShouldLoadThree] = useState(false);
-  const [isReducedMotion, setIsReducedMotion] = useState(false);
 
   useEffect(() => {
     // Only load Three.js if user does NOT prefer reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setIsReducedMotion(prefersReducedMotion);
     if (!prefersReducedMotion) {
       setShouldLoadThree(true);
     }
@@ -46,7 +43,7 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
-  const content = (
+  return (
     <>
       {/* Magic Cursor with fluid trailing ring */}
       <MagicCursor />
@@ -74,7 +71,7 @@ export default function App() {
 
         <div className="section-divider" />
 
-        {/* Section 2: Featured Work (Signature 3D Orbit & Squeeze Carousel) */}
+        {/* Section 2: Featured Work (Squeeze Carousel & Structured Grid) */}
         <Projects />
 
         <div className="section-divider" />
@@ -97,15 +94,5 @@ export default function App() {
       {/* Standard Footer */}
       <Footer />
     </>
-  );
-
-  if (isReducedMotion) {
-    return content;
-  }
-
-  return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
-      {content}
-    </ReactLenis>
   );
 }

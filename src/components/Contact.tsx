@@ -8,10 +8,11 @@ import {
   Check, 
   MapPin, 
   Clock,
+  Sparkles,
   ShieldCheck,
   MessageSquare
 } from 'lucide-react';
-import { TextScrollAnimation } from './ui/text-scroll-animation';
+import { TextScrollHeading } from './ui/text-scroll-animation';
 import { SocialProfileCards } from './SocialProfileCards';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
@@ -104,13 +105,20 @@ export const Contact: React.FC = () => {
     <section id="contact" className="contact-section">
       <div className="container">
         
-        {/* Scroll-Driven Character Headline Animation */}
-        <TextScrollAnimation
-          heading="LET'S BUILD SOMETHING INTELLIGENT."
-          highlightWords={['SOMETHING', 'INTELLIGENT.']}
-          subheading="Interested in AI, Generative AI, intelligent agents, and impactful software? Let's connect, exchange ideas, and explore opportunities to build something meaningful."
-          badge="DIRECT ENGAGEMENT & PROFILE ECOSYSTEM"
-        />
+        {/* Unified Section Header matching Projects, Engineering, and Experience */}
+        <div className="section-header-block">
+          <div className="section-pill">
+            <Sparkles size={14} className="text-lime" />
+            <span>DIRECT ENGAGEMENT & CONNECT</span>
+          </div>
+          <TextScrollHeading
+            heading="LET'S BUILD SOMETHING INTELLIGENT."
+            highlightWords={['SOMETHING', 'INTELLIGENT.']}
+          />
+          <p className="section-subheading-text">
+            Interested in AI, Generative AI, intelligent agents, and impactful software? Let's connect, exchange ideas, and explore opportunities to build something meaningful.
+          </p>
+        </div>
 
         {/* 7 Professional Profile Cards */}
         <SocialProfileCards />
