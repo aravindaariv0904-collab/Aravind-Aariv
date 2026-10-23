@@ -8,11 +8,11 @@ export const ResearchInterests: React.FC = () => {
       <div className="container">
         <div className="section-header-block">
           <div className="section-pill">
-            <Microscope size={14} className="text-cyan" />
+            <Microscope size={14} className="text-lime" />
             <span>APPLIED RESEARCH & INVESTIGATION</span>
           </div>
           <h2 className="section-heading-text">
-            Areas of <span className="gradient-text-indigo">Technical Exploration</span>
+            Areas of <span className="text-lime">Technical Exploration</span>
           </h2>
           <p className="section-subheading-text">
             Ongoing research vectors, theoretical investigations, and algorithmic experimentation.

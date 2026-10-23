@@ -1,5 +1,5 @@
 import React from 'react';
-import { Compass, Calendar, CheckCircle, Trophy, Award, Layers } from 'lucide-react';
+import { Compass, Calendar, CheckCircle2, Trophy, Award, Layers } from 'lucide-react';
 import { LEADERSHIP, ACHIEVEMENTS } from '../data/portfolioData';
 
 export const Leadership: React.FC = () => {
@@ -9,23 +9,23 @@ export const Leadership: React.FC = () => {
         {/* Section Header */}
         <div className="section-header-block">
           <div className="section-pill">
-            <Compass size={14} className="text-cyan" />
+            <Compass size={14} className="text-lime" />
             <span>DEVELOPMENT & RECOGNITION</span>
           </div>
           <h2 className="section-heading-text">
-            Leadership & <span className="gradient-text-indigo">Milestones</span>
+            Leadership & <span className="text-lime">Honors</span>
           </h2>
           <p className="section-subheading-text">
-            Professional leadership programs, competitive hackathon distinctions, and academic excellence.
+            Professional leadership fellowships, national hackathon distinctions, and academic achievements.
           </p>
         </div>
 
         {/* Featured Leadership Highlight */}
-        <div className="featured-leadership-card">
+        <div className="featured-leadership-card interactive">
           <div className="leadership-badge-row">
             <span className="leadership-category-tag">{LEADERSHIP.category}</span>
             <span className="leadership-status-badge in-progress">
-              <span className="pulse-dot"></span>
+              <span className="pulse-dot-lime"></span>
               <span>{LEADERSHIP.status}</span>
             </span>
           </div>
@@ -33,8 +33,8 @@ export const Leadership: React.FC = () => {
           <div className="leadership-main-header">
             <h3 className="leadership-title">{LEADERSHIP.title}</h3>
             <div className="leadership-date">
-              <Calendar size={14} />
-              <span>Started {LEADERSHIP.startDate}</span>
+              <Calendar size={14} className="text-lime" />
+              <span>Started {LEADERSHIP.startDate} (Continuing to Present)</span>
             </div>
           </div>
 
@@ -43,7 +43,7 @@ export const Leadership: React.FC = () => {
           <div className="leadership-highlights-grid">
             {LEADERSHIP.highlights.map((hl, idx) => (
               <div key={idx} className="leadership-highlight-item">
-                <CheckCircle size={16} className="text-cyan" />
+                <CheckCircle2 size={16} className="text-lime" />
                 <span>{hl}</span>
               </div>
             ))}
@@ -60,12 +60,12 @@ export const Leadership: React.FC = () => {
                   case 'Trophy': return <Trophy size={22} className="text-amber" />;
                   case 'Compass': return <Compass size={22} className="text-cyan" />;
                   case 'Award': return <Award size={22} className="text-violet" />;
-                  default: return <Layers size={22} className="text-emerald" />;
+                  default: return <Layers size={22} className="text-lime" />;
                 }
               };
 
               return (
-                <div key={idx} className="achievement-card-item">
+                <div key={idx} className="achievement-card-item interactive">
                   <div className="achievement-icon-box">
                     {getIcon(item.icon)}
                   </div>

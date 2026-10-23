@@ -15,10 +15,12 @@ export const Hero: React.FC = () => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Only apply tilt on larger non-touch devices
+    if (window.innerWidth < 1024) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: x * 14, y: -y * 14 });
+    setTilt({ x: x * 10, y: -y * 10 });
   };
 
   const handleMouseLeave = () => {
@@ -96,7 +98,7 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Center Column: Editorial Portrait with 3D Depth & Floating Badges */}
+          {/* Right Column: Editorial Portrait with 3D Depth & Non-Overlapping Badges */}
           <div 
             className="banner-three-center"
             onMouseMove={handleMouseMove}
@@ -118,7 +120,6 @@ export const Hero: React.FC = () => {
                   alt="Vejandla Aravind Aariv"
                   className="portrait-img-cutout"
                   onError={(e) => {
-                    // Fallback to studio photo if cutout fails
                     const target = e.target as HTMLImageElement;
                     target.src = '/images/profile/aravind_hero_studio.jpg';
                     target.className = 'portrait-img-studio';
@@ -126,47 +127,82 @@ export const Hero: React.FC = () => {
                 />
               </div>
 
-              {/* Floating Badge 1: SIH Grand Finale Lead */}
-              <div className="floating-badge badge-top-left interactive">
-                <div className="badge-icon-box text-lime">
-                  <Trophy size={16} />
+              {/* Desktop Floating Badges (Anchored to stage edges without overlapping portrait face) */}
+              <div className="desktop-floating-badges" aria-hidden="false">
+                {/* Floating Badge 1: SIH Grand Finale Lead */}
+                <div className="floating-badge badge-top-left interactive">
+                  <div className="badge-icon-box text-lime">
+                    <Trophy size={16} />
+                  </div>
+                  <div className="badge-text-box">
+                    <span className="badge-title">SIH 2025</span>
+                    <span className="badge-sub">Grand Finale Lead</span>
+                  </div>
                 </div>
-                <div className="badge-text-box">
-                  <span className="badge-title">SIH 2025</span>
-                  <span className="badge-sub">Grand Finale Lead</span>
+
+                {/* Floating Badge 2: Aspire Leadership Cohort 4 Fellow */}
+                <div className="floating-badge badge-top-right interactive">
+                  <div className="badge-icon-box text-cyan">
+                    <Rocket size={16} />
+                  </div>
+                  <div className="badge-text-box">
+                    <span className="badge-title">Aspire 2026</span>
+                    <span className="badge-sub">Cohort 4 Fellow · In Progress</span>
+                  </div>
+                </div>
+
+                {/* Floating Badge 3: CGPA 8.73/10 */}
+                <div className="floating-badge badge-bottom-left interactive">
+                  <div className="badge-icon-box text-violet">
+                    <GraduationCap size={16} />
+                  </div>
+                  <div className="badge-text-box">
+                    <span className="badge-title">8.73 / 10 CGPA</span>
+                    <span className="badge-sub">B.Tech CSE (AI & ML)</span>
+                  </div>
+                </div>
+
+                {/* Floating Badge 4: XTRAGRAD AI Intern (Completed) */}
+                <div className="floating-badge badge-bottom-right interactive">
+                  <div className="badge-icon-box text-lime">
+                    <Briefcase size={16} />
+                  </div>
+                  <div className="badge-text-box">
+                    <span className="badge-title">XTRAGRAD</span>
+                    <span className="badge-sub">AI Intern · Completed</span>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              {/* Floating Badge 2: Aspire Leadership Active */}
-              <div className="floating-badge badge-top-right interactive">
-                <div className="badge-icon-box text-cyan">
-                  <Rocket size={16} />
-                </div>
-                <div className="badge-text-box">
-                  <span className="badge-title">Aspire 2026</span>
-                  <span className="badge-sub">Cohort In Progress</span>
+            {/* Mobile / Tablet Dedicated Badge Grid (Guarantees zero overlap on small viewports) */}
+            <div className="mobile-badges-grid">
+              <div className="mobile-badge-card interactive">
+                <Trophy size={16} className="text-lime" />
+                <div className="mobile-badge-text">
+                  <span className="title">SIH 2025</span>
+                  <span className="sub">Grand Finale Team Lead</span>
                 </div>
               </div>
-
-              {/* Floating Badge 3: CGPA 8.73/10 */}
-              <div className="floating-badge badge-bottom-left interactive">
-                <div className="badge-icon-box text-violet">
-                  <GraduationCap size={16} />
-                </div>
-                <div className="badge-text-box">
-                  <span className="badge-title">8.73 / 10 CGPA</span>
-                  <span className="badge-sub">B.Tech CSE (AI & ML)</span>
+              <div className="mobile-badge-card interactive">
+                <Rocket size={16} className="text-cyan" />
+                <div className="mobile-badge-text">
+                  <span className="title">Aspire 2026</span>
+                  <span className="sub">Cohort 4 Fellow (In Progress)</span>
                 </div>
               </div>
-
-              {/* Floating Badge 4: XTRAGRAD AI Intern */}
-              <div className="floating-badge badge-bottom-right interactive">
-                <div className="badge-icon-box text-lime">
-                  <Briefcase size={16} />
+              <div className="mobile-badge-card interactive">
+                <GraduationCap size={16} className="text-violet" />
+                <div className="mobile-badge-text">
+                  <span className="title">8.73 CGPA</span>
+                  <span className="sub">B.Tech CSE (AI & ML)</span>
                 </div>
-                <div className="badge-text-box">
-                  <span className="badge-title">XTRAGRAD</span>
-                  <span className="badge-sub">AI Intern</span>
+              </div>
+              <div className="mobile-badge-card interactive">
+                <Briefcase size={16} className="text-lime" />
+                <div className="mobile-badge-text">
+                  <span className="title">XTRAGRAD</span>
+                  <span className="sub">AI Intern (Completed)</span>
                 </div>
               </div>
             </div>
@@ -175,7 +211,7 @@ export const Hero: React.FC = () => {
 
         {/* 4 Bottom Highlight Cards */}
         <div className="banner-bottom-metrics">
-          <div className="metric-strip-card">
+          <div className="metric-strip-card interactive">
             <span className="metric-strip-num">8.73</span>
             <div className="metric-strip-info">
               <h4>Academic CGPA</h4>
@@ -183,27 +219,27 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          <div className="metric-strip-card">
+          <div className="metric-strip-card interactive">
             <span className="metric-strip-num text-lime">SIH '25</span>
             <div className="metric-strip-info">
               <h4>National Finalist</h4>
-              <p>Team Lead · Bhooraksha Project</p>
+              <p>Grand Finale Lead · Bhooraksha</p>
             </div>
           </div>
 
-          <div className="metric-strip-card">
-            <span className="metric-strip-num text-cyan">2026</span>
+          <div className="metric-strip-card interactive">
+            <span className="metric-strip-num text-cyan">Aspire</span>
             <div className="metric-strip-info">
-              <h4>Aspire Leadership</h4>
-              <p>Started 21 Oct 2026 · Active Fellow</p>
+              <h4>Cohort 4 Fellow</h4>
+              <p>21 Oct 2026 – Present (In Progress)</p>
             </div>
           </div>
 
-          <div className="metric-strip-card">
-            <span className="metric-strip-num">AI/ML</span>
+          <div className="metric-strip-card interactive">
+            <span className="metric-strip-num text-lime">XTRAGRAD</span>
             <div className="metric-strip-info">
-              <h4>Applied Engineering</h4>
-              <p>LLMs, Agents, RAG & Quantum Labs</p>
+              <h4>AI Engineering Intern</h4>
+              <p>1 Jul – 1 Aug 2026 (Completed)</p>
             </div>
           </div>
         </div>

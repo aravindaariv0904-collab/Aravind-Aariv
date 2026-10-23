@@ -63,7 +63,7 @@ export const Journey: React.FC = () => {
               <div className="value-info">
                 <h3>Collaborative Leadership</h3>
                 <p>
-                  As SIH 2025 Grand Finale Team Lead and an Aspire Leadership Programme 2026 fellow, I prioritize psychological safety, clear task decomposition, and collective momentum.
+                  As SIH 2025 Grand Finale Team Lead and an Aspire Leadership Programme 2026 Cohort 4 Fellow, I prioritize psychological safety, clear task decomposition, and collective momentum.
                 </p>
               </div>
             </div>

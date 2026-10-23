@@ -34,11 +34,11 @@ export const Projects: React.FC = () => {
         {/* Section Header */}
         <div className="section-header-block">
           <div className="section-pill">
-            <Sparkles size={14} className="text-cyan" />
+            <Sparkles size={14} className="text-lime" />
             <span>PORTFOLIO SHOWCASE</span>
           </div>
           <h2 className="section-heading-text">
-            Featured <span className="gradient-text-indigo">Systems & Engineering</span> Projects
+            Featured <span className="text-lime">Systems & Engineering</span> Projects
           </h2>
           <p className="section-subheading-text">
             Production-grade systems, autonomous agent architectures, and verified full-stack applications.
@@ -48,28 +48,28 @@ export const Projects: React.FC = () => {
           <div className="project-filter-tabs">
             <button
               type="button"
-              className={`filter-tab ${filter === 'all' ? 'active' : ''}`}
+              className={`filter-tab interactive ${filter === 'all' ? 'active' : ''}`}
               onClick={() => setFilter('all')}
             >
               All Systems ({PROJECTS.length})
             </button>
             <button
               type="button"
-              className={`filter-tab ${filter === 'flagship' ? 'active' : ''}`}
+              className={`filter-tab interactive ${filter === 'flagship' ? 'active' : ''}`}
               onClick={() => setFilter('flagship')}
             >
-              Flagship Spotlights
+              Flagship Spotlights ({PROJECTS.filter(p => p.isFlagship).length})
             </button>
             <button
               type="button"
-              className={`filter-tab ${filter === 'ai' ? 'active' : ''}`}
+              className={`filter-tab interactive ${filter === 'ai' ? 'active' : ''}`}
               onClick={() => setFilter('ai')}
             >
               AI & Agents
             </button>
             <button
               type="button"
-              className={`filter-tab ${filter === 'fullstack' ? 'active' : ''}`}
+              className={`filter-tab interactive ${filter === 'fullstack' ? 'active' : ''}`}
               onClick={() => setFilter('fullstack')}
             >
               Full-Stack & Systems
@@ -81,18 +81,18 @@ export const Projects: React.FC = () => {
         {flagshipProjects.length > 0 && (
           <div className="flagship-showcase-group">
             <div className="group-title-row">
-              <Layers size={18} className="text-cyan" />
+              <Layers size={18} className="text-lime" />
               <h3>Tier 1 — Flagship Engineering Spotlights</h3>
             </div>
 
             <div className="flagship-cards-grid">
               {flagshipProjects.map((project) => (
-                <div key={project.id} className="flagship-card">
+                <div key={project.id} className="flagship-card interactive">
                   <div className="flagship-card-header">
                     <div className="flagship-meta">
                       <span className="project-category-badge">{project.category}</span>
                       <span className="project-status-pill flagship">
-                        <CheckCircle2 size={13} />
+                        <CheckCircle2 size={13} className="text-lime" />
                         <span>{project.status}</span>
                       </span>
                     </div>
@@ -131,7 +131,7 @@ export const Projects: React.FC = () => {
                     {project.caseStudy && (
                       <button
                         type="button"
-                        className="btn-action primary"
+                        className="btn-action primary interactive"
                         onClick={() => setSelectedCaseStudy(project)}
                       >
                         <FileText size={16} />
@@ -144,7 +144,7 @@ export const Projects: React.FC = () => {
                         href={project.demo}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn-action live"
+                        className="btn-action live interactive"
                       >
                         <ExternalLink size={16} />
                         <span>Live Demo</span>
@@ -156,7 +156,7 @@ export const Projects: React.FC = () => {
                         href={project.github}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn-action code"
+                        className="btn-action code interactive"
                       >
                         <GithubIcon size={16} />
                         <span>Repository</span>
@@ -173,20 +173,20 @@ export const Projects: React.FC = () => {
         {secondaryProjects.length > 0 && (
           <div className="secondary-showcase-group">
             <div className="group-title-row">
-              <Cpu size={18} className="text-violet" />
+              <Cpu size={18} className="text-cyan" />
               <h3>Tier 2 — Production Web & AI Platforms</h3>
             </div>
 
             <div className="secondary-cards-grid">
               {secondaryProjects.map((project) => (
-                <div key={project.id} className="secondary-project-card">
+                <div key={project.id} className="secondary-project-card interactive">
                   <div className="secondary-card-header">
                     <span className="secondary-category">{project.category}</span>
                     <span className="secondary-status-badge">
                       {project.status.includes('Progress') ? (
                         <Clock size={12} className="text-amber" />
                       ) : (
-                        <ShieldCheck size={12} className="text-emerald" />
+                        <ShieldCheck size={12} className="text-lime" />
                       )}
                       <span>{project.status}</span>
                     </span>
@@ -210,7 +210,7 @@ export const Projects: React.FC = () => {
                         href={project.demo}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn-secondary-action live"
+                        className="btn-secondary-action live interactive"
                       >
                         <ExternalLink size={15} />
                         <span>Live Demo</span>
@@ -222,10 +222,10 @@ export const Projects: React.FC = () => {
                         href={project.github}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn-secondary-action code"
+                        className="btn-secondary-action code interactive"
                       >
                         <GithubIcon size={15} />
-                        <span>Code</span>
+                        <span>Repository</span>
                       </a>
                     )}
                   </div>

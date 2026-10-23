@@ -61,7 +61,7 @@ export const About: React.FC = () => {
               </div>
               <div className="meta-strip-item">
                 <Briefcase size={16} className="text-lime" />
-                <span>AI Intern @ XTRAGRAD</span>
+                <span>AI Intern — XTRAGRAD (Completed)</span>
               </div>
             </div>
           </div>

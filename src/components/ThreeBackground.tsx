@@ -27,11 +27,11 @@ export const ThreeBackground: React.FC = () => {
     const sizes = new Float32Array(count);
 
     const palette = [
+      new THREE.Color('#d2f34c'), // Electric Lime
       new THREE.Color('#6366f1'), // Indigo
-      new THREE.Color('#8b5cf6'), // Violet
       new THREE.Color('#06b6d4'), // Cyan
-      new THREE.Color('#38bdf8'), // Sky
-      new THREE.Color('#818cf8'), // Soft Indigo
+      new THREE.Color('#8b5cf6'), // Violet
+      new THREE.Color('#bbf226'), // Soft Lime
     ];
 
     for (let i = 0; i < count; i++) {

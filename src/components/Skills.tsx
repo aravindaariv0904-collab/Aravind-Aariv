@@ -39,11 +39,11 @@ export const Skills: React.FC = () => {
       <div className="container">
         <div className="section-header-block">
           <div className="section-pill">
-            <Sparkles size={14} className="text-cyan" />
+            <Sparkles size={14} className="text-lime" />
             <span>TECHNICAL PROFICIENCY</span>
           </div>
           <h2 className="section-heading-text">
-            Technical Stack & <span className="gradient-text-indigo">Core Toolchain</span>
+            Technical Stack & <span className="text-lime">Core Toolchain</span>
           </h2>
           <p className="section-subheading-text">
             Technologies and frameworks applied across production deployments, research workflows, and system architectures.

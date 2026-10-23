@@ -26,7 +26,7 @@ export const HERO_HIGHLIGHTS = [
   {
     icon: 'Rocket',
     label: 'Aspire Leadership 2026',
-    sub: 'Started 21 Oct 2026 (In Progress)',
+    sub: 'Cohort 4 Fellow · In Progress',
   },
   {
     icon: 'GraduationCap',
@@ -35,8 +35,8 @@ export const HERO_HIGHLIGHTS = [
   },
   {
     icon: 'Briefcase',
-    label: 'AI Intern @ XTRAGRAD',
-    sub: 'Applied AI & Model Deployment',
+    label: 'AI Intern — XTRAGRAD',
+    sub: '1 Jul – 1 Aug 2026 (Completed)',
   },
 ];
 
@@ -46,7 +46,7 @@ export const ABOUT_TEXT = {
     "I'm an AI/ML-focused Computer Science and Engineering student interested in building intelligent applications that combine Generative AI, machine learning, agentic workflows, and full-stack engineering.",
     "My experience spans semantic search, AI-powered resume analysis, image authenticity detection, and AI-driven application development. I enjoy working across the development lifecycle, from designing system architectures and implementing backend services to building user interfaces and deploying applications.",
     "As a team lead at the Smart India Hackathon 2025 Grand Finale, I gained experience working on complex problem statements and coordinating technical development.",
-    "I am also participating in the Aspire Leadership Programme 2026, which began on 21 October 2026, to further develop my leadership and professional capabilities.",
+    "I am also participating in the Aspire Leadership Programme 2026 as a Cohort 4 Fellow, which began on 21 October 2026, to further develop my leadership and professional capabilities.",
     "My current focus is on building technically rigorous AI systems, improving my engineering practices, and exploring opportunities in AI engineering, software development, and applied research.",
   ],
   focusPills: [
@@ -221,41 +221,42 @@ export const PROJECTS: Project[] = [
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
+    title: 'Cohort 4 Fellow',
+    company: 'Aspire Leadership Programme 2026',
+    location: 'Global (Virtual Cohort)',
+    period: '21 Oct 2026 – Present',
+    status: 'In Progress',
+    bullets: [
+      'Selected as a Cohort 4 Fellow for the Aspire Leadership Programme, focused on cross-functional executive leadership, ethical governance, and strategic execution.',
+      'Engaging in intensive leadership masterclasses, strategic problem-solving case studies, and cross-cultural mentorship alongside emerging leaders worldwide.',
+      'Integrating executive leadership methodologies with technical AI systems engineering, agentic architectures, and applied research initiatives.'
+    ],
+    tags: ['Leadership Development', 'Strategic Problem Solving', 'Ethical Leadership', 'Cohort 4 Fellow', 'In Progress'],
+  },
+  {
     title: 'Artificial Intelligence Intern',
     company: 'XTRAGRAD',
     location: 'Remote',
-    period: 'July 2026 – Present',
-    status: 'Current Role',
+    period: '1 Jul 2026 – 1 Aug 2026',
+    status: 'Completed',
     bullets: [
       'Engineered VisionGuard AI, an explainable image authenticity platform using an EfficientNet-B0 classifier, achieving ~96–97% validation accuracy.',
       'Implemented Grad-CAM explainability heatmaps and a high-throughput FastAPI backend to serve real-time predictions to a modern React frontend.',
       'Containerized the full-stack system with Docker on AWS, integrating PostgreSQL to persist prediction records and audit verification data.',
       'Collaborated with senior ML engineers on model evaluation methodologies, inference benchmarking, and deployment pipelines.',
     ],
-    tags: ['Python', 'FastAPI', 'EfficientNet-B0', 'Grad-CAM', 'Docker', 'AWS', 'PostgreSQL'],
-  },
-  {
-    title: 'Team Lead — Smart India Hackathon 2025',
-    company: 'Ministry of Education, Government of India',
-    location: 'National Grand Finale',
-    period: 'December 2025',
-    bullets: [
-      'Led a multidisciplinary 6-member engineering team through a complex national-level problem statement to the Grand Finale stage.',
-      'Directed full-cycle system architecture for Bhooraksha: conceptualized multi-agent verification pipelines, GIS parcel boundaries, and 18-language localized interfaces.',
-      'Selected among the top ~300 finalist teams nationwide from a competitive pool of 50,000+ student registrations.',
-    ],
-    tags: ['Team Leadership', 'Agentic AI', 'System Architecture', 'FastAPI', 'National Finalist'],
+    tags: ['Python', 'FastAPI', 'EfficientNet-B0', 'Grad-CAM', 'Docker', 'AWS', 'PostgreSQL', 'Completed'],
   },
 ];
 
 export const LEADERSHIP: LeadershipItem = {
-  title: 'Aspire Leadership Programme 2026',
+  title: 'Aspire Leadership Programme 2026 — Cohort 4 Fellow',
   status: 'In Progress',
   startDate: '21 October 2026',
   category: 'Leadership Development | Professional Growth',
-  description: 'Participating in the Aspire Leadership Programme 2026 as part of ongoing professional and leadership development alongside technical AI engineering and academic work.',
+  description: 'Participating as a Cohort 4 Fellow in the Aspire Leadership Programme 2026 (21 Oct 2026 – Present), an intensive professional leadership fellowship focused on ethical decision-making, collaborative leadership, and strategic problem-solving alongside technical AI engineering.',
   highlights: [
-    'Began on 21 October 2026 as an ongoing professional growth milestone.',
+    'Aspire Leadership Programme 2026 — Cohort 4 Fellow (Started 21 Oct 2026, In Progress).',
     'Focus on executive decision-making, ethical leadership, team collaboration, and communication skills.',
     'Integrating leadership methodologies with technical systems engineering and research initiatives.',
   ],
@@ -271,7 +272,7 @@ export const ACHIEVEMENTS = [
   {
     icon: 'Compass',
     title: 'Aspire Leadership Programme 2026',
-    role: 'Participant (Started 21 Oct 2026)',
+    role: 'Cohort 4 Fellow (21 Oct 2026 – Present)',
     desc: 'Selected for intensive leadership and professional development programme focusing on cross-functional leadership and strategic problem solving.',
   },
   {

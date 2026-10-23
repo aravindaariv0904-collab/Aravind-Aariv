@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { 
   Mail, 
-  Globe, 
   Send, 
-  FileDown, 
-  Sparkles, 
   CheckCircle2, 
-  AlertCircle 
+  AlertCircle, 
+  Copy, 
+  Check, 
+  Sparkles, 
+  MapPin, 
+  ExternalLink 
 } from 'lucide-react';
 import { LinkedinIcon, GithubIcon } from './Icons';
 import { PERSONAL_INFO } from '../data/portfolioData';
@@ -19,219 +21,355 @@ export const Contact: React.FC = () => {
     message: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const [submitError, setSubmitError] = useState('');
+  const [copied, setCopied] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PERSONAL_INFO.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      // Fallback
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formState.name || !formState.email || !formState.message) {
-      setError('Please fill in your name, email, and message.');
+    setSubmitError('');
+
+    const name = formState.name.trim();
+    const email = formState.email.trim();
+    const subject = formState.subject.trim();
+    const message = formState.message.trim();
+
+    if (!name || !email || !message) {
+      setSubmitError('Please fill in your name, email address, and message.');
       return;
     }
 
-    // Construct mailto URL as reliable direct fallback
-    const mailSubject = encodeURIComponent(
-      `[Portfolio Inquiry] ${formState.subject || 'Engineering Collaboration'} from ${formState.name}`
-    );
-    const mailBody = encodeURIComponent(
-      `Name: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}`
-    );
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setSubmitError('Please enter a valid email address (e.g., name@domain.com).');
+      return;
+    }
 
-    window.location.href = `mailto:${PERSONAL_INFO.email}?subject=${mailSubject}&body=${mailBody}`;
-    setSubmitted(true);
-    setError('');
+    if (message.length < 10) {
+      setSubmitError('Please write a message with at least 10 characters.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const formData = new URLSearchParams();
+      formData.append('form-name', 'contact');
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('subject', subject || 'Portfolio Engineering Inquiry');
+      formData.append('message', message);
+
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString(),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormState({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error(`Server returned HTTP ${response.status}`);
+      }
+    } catch (err) {
+      console.warn('Direct form submission encountered an issue:', err);
+      setSubmitError('NETWORK_FALLBACK');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const mailtoFallbackUrl = `mailto:${PERSONAL_INFO.email}?subject=${encodeURIComponent(
+    `[Portfolio Inquiry] ${formState.subject || 'Engineering Collaboration'} from ${formState.name || 'Visitor'}`
+  )}&body=${encodeURIComponent(
+    `Name: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}`
+  )}`;
 
   return (
     <section id="contact" className="contact-section">
       <div className="container">
         <div className="section-header-block">
           <div className="section-pill">
-            <Sparkles size={14} className="text-cyan" />
+            <Sparkles size={14} className="text-lime" />
             <span>DIRECT ENGAGEMENT</span>
           </div>
           <h2 className="section-heading-text">
-            Let's Build Something <span className="gradient-text-indigo">Meaningful</span>
+            Let's Build Something <span className="text-lime">Meaningful</span>
           </h2>
           <p className="section-subheading-text">
-            I'm interested in AI engineering, software development, applied research, technical collaboration, and opportunities to build practical AI-powered systems.
+            Interested in AI engineering roles, multi-agent architectures, applied research, and high-impact systems collaboration.
           </p>
         </div>
 
         <div className="contact-layout-grid">
           {/* Left Column: Direct Verified Channels */}
-          <div className="contact-info-card">
+          <div className="contact-info-card interactive">
             <h3 className="contact-card-title">Verified Contact Channels</h3>
             <p className="contact-card-desc">
-              Whether you have an inquiry about my research platforms, an internship opportunity, or technical collaboration, feel free to reach out directly.
+              Whether you have an inquiry about my research platforms, an internship or full-time opportunity, or technical collaboration, feel free to reach out directly.
             </p>
 
             <div className="channels-list">
-              <a 
-                href={`mailto:${PERSONAL_INFO.email}`} 
-                className="channel-item email"
-              >
-                <div className="channel-icon-box">
+              {/* Direct Email Channel with 1-Click Copy */}
+              <div className="channel-item email-channel">
+                <div className="channel-icon-box text-lime">
                   <Mail size={18} />
                 </div>
                 <div className="channel-text">
                   <span className="channel-label">Direct Email</span>
-                  <span className="channel-value">{PERSONAL_INFO.email}</span>
+                  <a href={`mailto:${PERSONAL_INFO.email}`} className="channel-value">
+                    {PERSONAL_INFO.email}
+                  </a>
                 </div>
-              </a>
+                <button
+                  type="button"
+                  className="btn-copy-email interactive"
+                  onClick={handleCopyEmail}
+                  title="Copy email to clipboard"
+                  aria-label="Copy email address"
+                >
+                  {copied ? <Check size={15} className="text-lime" /> : <Copy size={15} />}
+                  <span className="copy-tooltip">{copied ? 'Copied!' : 'Copy'}</span>
+                </button>
+              </div>
 
+              {/* LinkedIn Profile */}
               <a 
                 href={PERSONAL_INFO.linkedin} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="channel-item linkedin"
+                className="channel-item linkedin-channel interactive"
               >
-                <div className="channel-icon-box">
+                <div className="channel-icon-box text-cyan">
                   <LinkedinIcon size={18} />
                 </div>
                 <div className="channel-text">
                   <span className="channel-label">LinkedIn Profile</span>
                   <span className="channel-value">vejandla-aravind-aariv</span>
                 </div>
+                <ExternalLink size={14} className="channel-arrow" />
               </a>
 
+              {/* GitHub Profile */}
               <a 
                 href={PERSONAL_INFO.github} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="channel-item github"
+                className="channel-item github-channel interactive"
               >
-                <div className="channel-icon-box">
+                <div className="channel-icon-box text-lime">
                   <GithubIcon size={18} />
                 </div>
                 <div className="channel-text">
-                  <span className="channel-label">GitHub Workspace</span>
+                  <span className="channel-label">GitHub Repositories</span>
                   <span className="channel-value">aravindaariv0904-collab</span>
                 </div>
+                <ExternalLink size={14} className="channel-arrow" />
               </a>
 
-              <a 
-                href={PERSONAL_INFO.portfolioUrl} 
-                className="channel-item web"
-              >
-                <div className="channel-icon-box">
-                  <Globe size={18} />
+              {/* Location & Timezone */}
+              <div className="channel-item location-channel">
+                <div className="channel-icon-box text-violet">
+                  <MapPin size={18} />
                 </div>
                 <div className="channel-text">
-                  <span className="channel-label">Production Deployment</span>
-                  <span className="channel-value">aravind-aariv.netlify.app</span>
+                  <span className="channel-label">Academic Base & Location</span>
+                  <span className="channel-value">{PERSONAL_INFO.location}</span>
                 </div>
-              </a>
+              </div>
             </div>
 
-            <div className="contact-resume-block">
-              <a 
-                href={PERSONAL_INFO.resumePdfUrl} 
-                download="Vejandla_Aravind_Aariv_Resume.pdf"
-                className="btn-contact-resume"
-              >
-                <FileDown size={18} />
-                <span>Download Canonical Resume (PDF)</span>
-              </a>
+            {/* Quick Status Box */}
+            <div className="contact-status-card">
+              <div className="status-ping-box">
+                <span className="ping-dot-lime"></span>
+                <span className="ping-wave-lime"></span>
+              </div>
+              <div className="status-text-info">
+                <strong>Active & Responsive</strong>
+                <p>Typically responds within 24 hours for engineering inquiries and collaborations.</p>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Interactive Inquiry Form */}
-          <div className="contact-form-card">
-            <h3 className="contact-card-title">Send a Direct Technical Message</h3>
-            <p className="contact-card-desc">
-              Submitting launches your email client pre-filled with this inquiry for immediate delivery.
-            </p>
-
+          {/* Right Column: Secure AJAX Contact Form */}
+          <div className="contact-form-card interactive">
             {submitted ? (
-              <div className="form-success-box">
-                <CheckCircle2 size={32} className="text-emerald" />
-                <h4 className="success-title">Draft Initialized!</h4>
-                <p className="success-desc">
-                  Your default mail client has opened with your inquiry addressed to <strong>{PERSONAL_INFO.email}</strong>.
+              <div className="form-success-banner" role="status" aria-live="polite">
+                <div className="success-icon-box">
+                  <CheckCircle2 size={36} className="text-lime" />
+                </div>
+                <h4 className="success-heading">Message Dispatched Successfully!</h4>
+                <p className="success-message">
+                  Thank you for reaching out. Your note has been securely transmitted. I review incoming messages daily and will reply to your email address shortly.
                 </p>
                 <button
                   type="button"
-                  className="btn-reset-form"
+                  className="btn-lime-primary interactive"
                   onClick={() => setSubmitted(false)}
                 >
                   Send Another Message
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="inquiry-form" noValidate>
-                {error && (
-                  <div className="form-error-banner">
+              <form 
+                name="contact" 
+                method="POST" 
+                data-netlify="true" 
+                onSubmit={handleSubmit}
+                className="contact-form-inner"
+                noValidate
+              >
+                {/* Netlify Hidden Form Name Input */}
+                <input type="hidden" name="form-name" value="contact" />
+
+                <h3 className="form-title">Send a Direct Message</h3>
+                <p className="form-subtitle">
+                  Direct delivery with zero account sign-in required.
+                </p>
+
+                {submitError && submitError !== 'NETWORK_FALLBACK' && (
+                  <div className="form-error-alert" role="alert">
                     <AlertCircle size={16} />
-                    <span>{error}</span>
+                    <span>{submitError}</span>
                   </div>
                 )}
 
-                <div className="form-row dual">
-                  <div className="form-field">
-                    <label htmlFor="name" className="field-label">
-                      Your Full Name *
+                {submitError === 'NETWORK_FALLBACK' && (
+                  <div className="form-fallback-alert" role="alert">
+                    <AlertCircle size={18} className="text-amber" />
+                    <div className="fallback-alert-content">
+                      <strong>Direct delivery could not reach the server right now.</strong>
+                      <p>You can copy my email or open an email draft without losing your message:</p>
+                      <div className="fallback-actions-row">
+                        <button
+                          type="button"
+                          className="btn-fallback-copy interactive"
+                          onClick={handleCopyEmail}
+                        >
+                          <Copy size={14} />
+                          <span>{copied ? 'Copied!' : 'Copy aariv948@gmail.com'}</span>
+                        </button>
+                        <a
+                          href={mailtoFallbackUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-fallback-mailto interactive"
+                        >
+                          <Mail size={14} />
+                          <span>Open in Email App</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="form-fields-grid">
+                  <div className="form-group">
+                    <label htmlFor="contact-name" className="form-label">
+                      Your Name <span className="text-lime">*</span>
                     </label>
                     <input
-                      id="name"
+                      id="contact-name"
+                      name="name"
                       type="text"
-                      className="form-input"
-                      placeholder="e.g. Sarah Jenkins"
+                      required
+                      placeholder="e.g. Alex Chen"
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      required
+                      className="form-input interactive"
+                      disabled={isSubmitting}
                     />
                   </div>
 
-                  <div className="form-field">
-                    <label htmlFor="email" className="field-label">
-                      Email Address *
+                  <div className="form-group">
+                    <label htmlFor="contact-email" className="form-label">
+                      Your Email <span className="text-lime">*</span>
                     </label>
                     <input
-                      id="email"
+                      id="contact-email"
+                      name="email"
                       type="email"
-                      className="form-input"
-                      placeholder="e.g. s.jenkins@company.com"
+                      required
+                      placeholder="e.g. alex@company.com"
                       value={formState.email}
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      required
+                      className="form-input interactive"
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label htmlFor="subject" className="field-label">
-                    Subject / Discussion Topic
+                <div className="form-group">
+                  <label htmlFor="contact-subject" className="form-label">
+                    Subject / Area of Interest
                   </label>
                   <input
-                    id="subject"
+                    id="contact-subject"
+                    name="subject"
                     type="text"
-                    className="form-input"
-                    placeholder="e.g. SDE / AI Engineer Internship Opportunity"
+                    placeholder="e.g. AI Engineering Role / Bhooraksha Collaboration"
                     value={formState.subject}
                     onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
+                    className="form-input interactive"
+                    disabled={isSubmitting}
                   />
                 </div>
 
-                <div className="form-field">
-                  <label htmlFor="message" className="field-label">
-                    Message Details *
+                <div className="form-group">
+                  <label htmlFor="contact-message" className="form-label">
+                    Message <span className="text-lime">*</span>
                   </label>
                   <textarea
-                    id="message"
-                    rows={4}
-                    className="form-textarea"
-                    placeholder="Describe your project, role opportunity, or technical collaboration..."
+                    id="contact-message"
+                    name="message"
+                    required
+                    rows={5}
+                    placeholder="Describe your project, team opportunity, or discussion topic..."
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    required
+                    className="form-textarea interactive"
+                    disabled={isSubmitting}
                   />
                 </div>
 
-                <button type="submit" className="btn-submit-inquiry">
-                  <Send size={16} />
-                  <span>Send Technical Inquiry</span>
-                </button>
+                <div className="form-submit-row">
+                  <button
+                    type="submit"
+                    className="btn-lime-primary form-submit-btn interactive"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <span className="spinner-border-sm" aria-hidden="true" />
+                        <span>Dispatching...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Send Message</span>
+                        <Send size={16} />
+                      </>
+                    )}
+                  </button>
+
+                  <span className="form-privacy-note">
+                    🔒 No sign-in required. Messages dispatch directly to Aravind's inbox.
+                  </span>
+                </div>
               </form>
             )}
           </div>

@@ -8,11 +8,11 @@ export const Certifications: React.FC = () => {
       <div className="container">
         <div className="section-header-block">
           <div className="section-pill">
-            <Award size={14} className="text-cyan" />
+            <Award size={14} className="text-lime" />
             <span>CONTINUOUS LEARNING</span>
           </div>
           <h2 className="section-heading-text">
-            Technical Certifications & <span className="gradient-text-indigo">Verified Credentials</span>
+            Technical Certifications & <span className="text-lime">Verified Credentials</span>
           </h2>
           <p className="section-subheading-text">
             Official specializations, cloud skill badges, and verified assessments from Google, Microsoft, IBM, and Deloitte.
