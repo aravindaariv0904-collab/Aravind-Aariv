@@ -6,11 +6,13 @@ import {
   AlertCircle, 
   Copy, 
   Check, 
-  Sparkles, 
   MapPin, 
-  ExternalLink 
+  Clock,
+  ShieldCheck,
+  MessageSquare
 } from 'lucide-react';
-import { LinkedinIcon, GithubIcon } from './Icons';
+import { TextScrollAnimation } from './ui/text-scroll-animation';
+import { SocialProfileCards } from './SocialProfileCards';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export const Contact: React.FC = () => {
@@ -32,7 +34,6 @@ export const Contact: React.FC = () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     } catch {
-      // Fallback
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }
@@ -102,29 +103,33 @@ export const Contact: React.FC = () => {
   return (
     <section id="contact" className="contact-section">
       <div className="container">
-        <div className="section-header-block">
-          <div className="section-pill">
-            <Sparkles size={14} className="text-lime" />
-            <span>DIRECT ENGAGEMENT</span>
-          </div>
-          <h2 className="section-heading-text">
-            Have an <span className="text-lime">Interesting Problem</span> to Solve?
-          </h2>
-          <p className="section-subheading-text">
-            Let's connect about AI engineering, software development, applied research, or building useful technology.
-          </p>
-        </div>
+        
+        {/* Scroll-Driven Character Headline Animation */}
+        <TextScrollAnimation
+          heading="LET'S BUILD SOMETHING INTELLIGENT."
+          highlightWords={['SOMETHING', 'INTELLIGENT.']}
+          subheading="Interested in AI, Generative AI, intelligent agents, and impactful software? Let's connect, exchange ideas, and explore opportunities to build something meaningful."
+          badge="DIRECT ENGAGEMENT & PROFILE ECOSYSTEM"
+        />
 
+        {/* 7 Professional Profile Cards */}
+        <SocialProfileCards />
+
+        {/* Dual Column: Verified Direct Channels & Secure Direct Message Form */}
         <div className="contact-layout-grid">
-          {/* Left Column: Direct Verified Channels */}
+          
+          {/* Left Column: Direct Inquiries & Availability Overview */}
           <div className="contact-info-card interactive">
-            <h3 className="contact-card-title">Verified Contact Channels</h3>
+            <h3 className="contact-card-title flex items-center gap-2">
+              <ShieldCheck size={20} className="text-lime" />
+              <span>Direct Engagement Channels</span>
+            </h3>
             <p className="contact-card-desc">
-              Whether you have an inquiry about my research platforms, an internship or full-time opportunity, or technical collaboration, feel free to reach out directly.
+              Whether you have inquiries about my research architectures, full-stack AI engineering, or potential roles and collaborative technical projects, feel free to reach out directly.
             </p>
 
             <div className="channels-list">
-              {/* Direct Email Channel with 1-Click Copy */}
+              {/* Direct Email Item */}
               <div className="channel-item email-channel">
                 <div className="channel-icon-box text-lime">
                   <Mail size={18} />
@@ -147,41 +152,7 @@ export const Contact: React.FC = () => {
                 </button>
               </div>
 
-              {/* LinkedIn Profile */}
-              <a 
-                href={PERSONAL_INFO.linkedin} 
-                target="_blank" 
-                rel="noreferrer" 
-                className="channel-item linkedin-channel interactive"
-              >
-                <div className="channel-icon-box text-cyan">
-                  <LinkedinIcon size={18} />
-                </div>
-                <div className="channel-text">
-                  <span className="channel-label">LinkedIn Profile</span>
-                  <span className="channel-value">vejandla-aravind-aariv</span>
-                </div>
-                <ExternalLink size={14} className="channel-arrow" />
-              </a>
-
-              {/* GitHub Profile */}
-              <a 
-                href={PERSONAL_INFO.github} 
-                target="_blank" 
-                rel="noreferrer" 
-                className="channel-item github-channel interactive"
-              >
-                <div className="channel-icon-box text-lime">
-                  <GithubIcon size={18} />
-                </div>
-                <div className="channel-text">
-                  <span className="channel-label">GitHub Repositories</span>
-                  <span className="channel-value">aravindaariv0904-collab</span>
-                </div>
-                <ExternalLink size={14} className="channel-arrow" />
-              </a>
-
-              {/* Location & Timezone */}
+              {/* Location Item */}
               <div className="channel-item location-channel">
                 <div className="channel-icon-box text-violet">
                   <MapPin size={18} />
@@ -189,6 +160,17 @@ export const Contact: React.FC = () => {
                 <div className="channel-text">
                   <span className="channel-label">Academic Base & Location</span>
                   <span className="channel-value">{PERSONAL_INFO.location}</span>
+                </div>
+              </div>
+
+              {/* Response Time Item */}
+              <div className="channel-item response-channel">
+                <div className="channel-icon-box text-cyan">
+                  <Clock size={18} />
+                </div>
+                <div className="channel-text">
+                  <span className="channel-label">Timezone & Response</span>
+                  <span className="channel-value">IST (UTC+5:30) · Within 24 hours</span>
                 </div>
               </div>
             </div>
@@ -201,7 +183,7 @@ export const Contact: React.FC = () => {
               </div>
               <div className="status-text-info">
                 <strong>Active & Responsive</strong>
-                <p>Typically responds within 24 hours for engineering inquiries and collaborations.</p>
+                <p>Open to technical discussions, AI engineering fellowships, and high-impact software projects.</p>
               </div>
             </div>
           </div>
@@ -222,7 +204,8 @@ export const Contact: React.FC = () => {
                   className="btn-lime-primary interactive"
                   onClick={() => setSubmitted(false)}
                 >
-                  Send Another Message
+                  <MessageSquare size={14} style={{ marginRight: '6px' }} />
+                  <span>Send Another Message</span>
                 </button>
               </div>
             ) : (
