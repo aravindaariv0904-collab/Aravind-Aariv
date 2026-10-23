@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    ARAVIND AARIV — MODERNIZED PORTFOLIO DESIGN SYSTEM (OCTOBER 2026)
    WCAG 2.2 AA Compliant · High-Performance WebGL Integration
    ========================================================================== */
@@ -5136,9 +5136,13 @@ textarea:focus-visible,
 /* ══════════════════════════════════════════════════════════════
    CONTACT SECTION: STANDARDIZED 7 PROFESSIONAL PROFILE CARDS
    ══════════════════════════════════════════════════════════════ */
+.contact-section {
+  scroll-margin-top: calc(var(--navbar-height) + 1rem);
+}
+
 .social-profiles-container {
   width: 100%;
-  margin: 1.75rem 0 3rem;
+  margin: 3rem 0 3rem;
   position: relative;
   z-index: 10;
 }
