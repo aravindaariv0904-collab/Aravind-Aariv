@@ -44,13 +44,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
   const navLinks = [
     { href: '#home', label: 'Home' },
     { href: '#projects', label: 'Projects' },
-    { href: '#about', label: 'About' },
-    { href: '#journey', label: 'Journey' },
+    { href: '#engineering', label: 'Engineering' },
     { href: '#experience', label: 'Experience' },
-    { href: '#leadership', label: 'Leadership' },
-    { href: '#skills', label: 'Tech Stack' },
-    { href: '#certifications', label: 'Certifications' },
-    { href: '#research', label: 'Exploration' },
     { href: '#contact', label: 'Contact' },
   ];
 

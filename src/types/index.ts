@@ -10,6 +10,7 @@ export interface Project {
   accentColor: string;
   status: string;
   isFlagship?: boolean;
+  image?: string;
   metrics?: { label: string; value: string }[];
   caseStudy?: {
     overview: string;

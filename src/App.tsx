@@ -3,13 +3,8 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
 import { Projects } from './components/Projects';
-import { About } from './components/About';
-import { Journey } from './components/Journey';
+import { EngineeringProfile } from './components/EngineeringProfile';
 import { Experience } from './components/Experience';
-import { Leadership } from './components/Leadership';
-import { Skills } from './components/Skills';
-import { Certifications } from './components/Certifications';
-import { ResearchInterests } from './components/ResearchInterests';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { MagicCursor } from './components/MagicCursor';
@@ -53,7 +48,7 @@ export default function App() {
       {/* Magic Cursor with fluid trailing ring */}
       <MagicCursor />
 
-      {/* Skip to Content for Screen Readers & Keyboard Users */}
+      {/* Skip to Content for Screen Readers & Keyboard Accessibility */}
       <a href="#main" className="skip-to-content">
         Skip to main content
       </a>
@@ -65,31 +60,34 @@ export default function App() {
         </Suspense>
       )}
 
-      {/* Global Navigation Header */}
+      {/* Global Navigation Header (5 Major Sections + Resume) */}
       <Navbar activeSection={activeSection} />
 
-      {/* Main Content Sections */}
+      {/* Main Content: 5 Primary Architectural Sections */}
       <main id="main">
+        {/* Section 1: Home / Hero */}
         <Hero />
         <Marquee />
+
         <div className="section-divider" />
+
+        {/* Section 2: Featured Work (Signature 3D Orbit & Platforms) */}
         <Projects />
+
         <div className="section-divider" />
-        <About />
+
+        {/* Section 3: Engineering Profile (About, Skills, Research, Certifications) */}
+        <EngineeringProfile />
+
         <div className="section-divider" />
-        <Journey />
-        <div className="section-divider" />
+
+        {/* Section 4: Experience & Leadership Timeline */}
         <Experience />
-        <div className="section-divider" />
-        <Leadership />
-        <div className="section-divider" />
-        <Skills />
-        <div className="section-divider" />
-        <Certifications />
-        <div className="section-divider" />
-        <ResearchInterests />
         <Marquee reverse />
+
         <div className="section-divider" />
+
+        {/* Section 5: Contact & Connect */}
         <Contact />
       </main>
 

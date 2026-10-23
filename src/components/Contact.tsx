@@ -108,10 +108,10 @@ export const Contact: React.FC = () => {
             <span>DIRECT ENGAGEMENT</span>
           </div>
           <h2 className="section-heading-text">
-            Let's Build Something <span className="text-lime">Meaningful</span>
+            Have an <span className="text-lime">Interesting Problem</span> to Solve?
           </h2>
           <p className="section-subheading-text">
-            Interested in AI engineering roles, multi-agent architectures, applied research, and high-impact systems collaboration.
+            Let's connect about AI engineering, software development, applied research, or building useful technology.
           </p>
         </div>
 

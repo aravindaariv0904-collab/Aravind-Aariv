@@ -4,7 +4,7 @@ export const PERSONAL_INFO = {
   name: 'Vejandla Aravind Aariv',
   shortName: 'Aravind Aariv',
   title: 'AI/ML Engineer | Generative AI & AI Agents | Full-Stack Developer',
-  headline: 'Building Intelligent Systems That Solve Real-World Problems.',
+  headline: 'Building Intelligent Systems for Real-World Problems.',
   institution: 'Kalasalingam Academy of Research and Education',
   degree: 'B.Tech in Computer Science and Engineering (Artificial Intelligence & Machine Learning)',
   graduationYear: '2029',
@@ -62,6 +62,7 @@ export const ABOUT_TEXT = {
 export const PROJECTS: Project[] = [
   {
     id: 'bhooraksha',
+    image: '/images/projects/bhooraksha.jpg',
     title: 'Bhooraksha',
     subtitle: 'AI-Powered Land Record Digitization and Validation',
     category: 'AI Engineering | Agentic AI | GIS | Digital Governance',
@@ -103,6 +104,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'qlearn',
+    image: '/images/projects/qlearn.jpg',
     title: 'QLearn',
     subtitle: 'Quantum Algorithm Learning and Experimentation Platform',
     category: 'Quantum Computing | Educational Technology | Full-Stack Development',
@@ -142,6 +144,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'talent-ranker',
+    image: '/images/projects/talent-ranker.jpg',
     title: 'Talent Intelligence Ranker',
     subtitle: 'AI-Powered Semantic Candidate Screening Engine',
     category: 'Generative AI Applications | Semantic Search | NLP',
@@ -160,6 +163,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'resume-ai',
+    image: '/images/projects/resume-ai.jpg',
     title: 'AI Resume Analyzer',
     subtitle: 'ATS-Oriented Resume Evaluation & Gap Detection',
     category: 'Generative AI | Full-Stack Development',
@@ -172,6 +176,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'farm-seeva',
+    image: '/images/projects/farm-seeva.jpg',
     title: 'FARM SEEVA',
     subtitle: 'AI-Enabled Agriculture & Crop Advisory Platform',
     category: 'Applied AI | Agriculture | Full-Stack Development',
@@ -184,6 +189,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'vision-guard',
+    image: '/images/projects/vision-guard.jpg',
     title: 'VisionGuard AI',
     subtitle: 'Explainable Image Authenticity & Deepfake Classifier',
     category: 'Computer Vision | Explainable AI',
@@ -196,6 +202,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'split-glass',
+    image: '/images/projects/split-glass.jpg',
     title: 'SplitGlass Ledger',
     subtitle: 'Algorithmic Shared Expense & Debt Simplification',
     category: 'Full-Stack Development | Algorithms | Financial Utilities',
@@ -208,6 +215,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'project-hub',
+    image: '/images/projects/project-hub.jpg',
     title: 'ProjectHub',
     subtitle: 'Student Collaboration & Hackathon Platform',
     category: 'Full-Stack Development | Student Collaboration',
@@ -324,56 +332,74 @@ export const CERTIFICATIONS: CertificationItem[] = [
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
-    group: 'Programming Languages',
+    group: 'Programming',
     items: [
       { name: 'Python' },
+      { name: 'TypeScript' },
+      { name: 'JavaScript' },
       { name: 'C' },
       { name: 'SQL' },
-      { name: 'JavaScript' },
-      { name: 'TypeScript' },
     ],
   },
   {
     group: 'AI & Machine Learning',
     items: [
-      { name: 'Generative AI' },
-      { name: 'Large Language Models' },
-      { name: 'AI Agents' },
-      { name: 'RAG' },
-      { name: 'Prompt Engineering' },
       { name: 'Machine Learning' },
+      { name: 'Deep Learning' },
+      { name: 'Computer Vision' },
       { name: 'Semantic Search' },
-      { name: 'Embeddings' },
+      { name: 'Vector Embeddings' },
+      { name: 'Sentence Transformers' },
+      { name: 'Grad-CAM' },
+      { name: 'EfficientNet' },
     ],
   },
   {
-    group: 'Frameworks & Full-Stack',
+    group: 'Generative AI & AI Agents',
     items: [
-      { name: 'React' },
-      { name: 'Next.js' },
-      { name: 'FastAPI' },
-      { name: 'Streamlit' },
+      { name: 'Agentic AI Systems' },
+      { name: 'Multi-Agent Workflows' },
+      { name: 'RAG Architectures' },
+      { name: 'Prompt Engineering' },
+      { name: 'Gemini API' },
+      { name: 'Structured JSON Outputs' },
+      { name: 'Tool Calling & Function Orchestration' },
+    ],
+  },
+  {
+    group: 'Frontend Development',
+    items: [
+      { name: 'React 19' },
+      { name: 'Next.js 14' },
+      { name: 'TypeScript' },
       { name: 'Tailwind CSS' },
+      { name: 'Framer Motion' },
+      { name: 'Three.js' },
+      { name: 'Responsive UI/UX' },
     ],
   },
   {
-    group: 'Data & Backend Systems',
+    group: 'Backend & Databases',
     items: [
+      { name: 'FastAPI' },
+      { name: 'Node.js' },
       { name: 'PostgreSQL' },
-      { name: 'Supabase' },
-      { name: 'FAISS' },
-      { name: 'Prisma' },
+      { name: 'PostGIS (Spatial)' },
+      { name: 'FAISS Flat Index' },
+      { name: 'Supabase RLS' },
+      { name: 'Prisma ORM' },
     ],
   },
   {
-    group: 'Cloud & Developer Tools',
+    group: 'Cloud, Deployment & Developer Tools',
     items: [
       { name: 'Git' },
-      { name: 'GitHub' },
-      { name: 'AWS' },
+      { name: 'GitHub Actions' },
       { name: 'Docker' },
-      { name: 'Vercel' },
+      { name: 'AWS' },
       { name: 'Netlify' },
+      { name: 'Vercel' },
+      { name: 'Linux' },
     ],
   },
 ];
