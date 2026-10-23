@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 // ─────────────────────────────────────────────
@@ -88,9 +88,9 @@ const PROJECTS = [
     iconBg: 'linear-gradient(135deg,rgba(59,130,246,0.2),rgba(99,102,241,0.15))',
     title: 'ProjectHub Campus Network',
     desc: 'Student hackathon platform with Supabase RLS multi-tenant isolation, GitHub API imports, and real-time Kanban collaboration.',
-    tags: ['Next.js', 'Supabase', 'GitHub API', 'TypeScript'],
+    tags: ['React 19', 'Vite', 'Supabase', 'TypeScript'],
     demo: 'https://aravind-aariv-projecthub.netlify.app',
-    github: 'https://github.com/aravindaariv0904-collab/project-hub',
+    github: 'https://github.com/aravindaariv0904-collab/projecthub2',
     accentColor: '#3b82f6',
   },
   {
