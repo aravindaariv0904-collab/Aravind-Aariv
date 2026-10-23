@@ -2595,23 +2595,23 @@ section {
   transform: translateY(-4px) scale(1.04);
 }
 .badge-top-left {
-  top: 8%;
-  left: -12%;
+  top: 40%;
+  left: -40px;
   animation: float-soft 4s ease-in-out infinite;
 }
 .badge-top-right {
-  top: 14%;
-  right: -10%;
+  top: 48%;
+  right: -35px;
   animation: float-soft 4.5s ease-in-out infinite 1s;
 }
 .badge-bottom-left {
-  bottom: 12%;
-  left: -14%;
+  bottom: 14%;
+  left: -35px;
   animation: float-soft 5s ease-in-out infinite 0.5s;
 }
 .badge-bottom-right {
-  bottom: 6%;
-  right: -12%;
+  bottom: 4%;
+  right: -30px;
   animation: float-soft 4.2s ease-in-out infinite 1.5s;
 }
 @keyframes float-soft {
