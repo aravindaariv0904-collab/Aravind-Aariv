@@ -13,6 +13,7 @@ export const PERSONAL_INFO = {
   email: 'aariv948@gmail.com',
   github: 'https://github.com/aravindaariv0904-collab',
   linkedin: 'https://linkedin.com/in/vejandla-aravind-aariv',
+  credly: 'https://www.credly.com/users/aravind-aariv-vejandla',
   portfolioUrl: 'https://aravind-aariv.netlify.app/',
   resumePdfUrl: '/resume.pdf',
 };

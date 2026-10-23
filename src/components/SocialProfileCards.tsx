@@ -143,7 +143,7 @@ export const SocialProfileCards: React.FC = () => {
 
               {/* Card Action Bar */}
               <div className="profile-card-action-bar">
-                {isCredly ? (
+                {isCredly && !profile.isConfigured ? (
                   <div className="profile-action-unconfigured">
                     Verification pending · Profile URL placeholder
                   </div>
