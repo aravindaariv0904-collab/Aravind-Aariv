@@ -82,24 +82,37 @@ export const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const formData = new URLSearchParams();
-      formData.append('form-name', 'contact');
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('subject', subject || 'Portfolio Engineering Inquiry');
-      formData.append('message', message);
+      const payload = {
+        name,
+        email,
+        subject: subject || 'Portfolio Engineering Inquiry',
+        message,
+        botField,
+      };
 
-      const response = await fetch('/', {
+      const response = await fetch('/.netlify/functions/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString(),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(payload),
       });
 
-      if (response.ok) {
+      let data: { ok?: boolean; message?: string; error?: string; code?: string } = {};
+      try {
+        data = await response.json();
+      } catch {
+        // Fallback if response returned non-JSON
+      }
+
+      if (response.ok && data.ok) {
         setSubmitted(true);
         setFormState({ name: '', email: '', subject: '', message: '' });
+        setBotField('');
       } else {
-        throw new Error(`Server returned HTTP ${response.status}`);
+        const errorMsg = data.error || `Server responded with HTTP ${response.status}`;
+        throw new Error(errorMsg);
       }
     } catch (err) {
       console.warn('Direct form submission encountered an issue:', err);
@@ -221,7 +234,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <h4 className="success-heading">Message Submitted Successfully!</h4>
                 <p className="success-message">
-                  Thank you for reaching out. Your inquiry has been received. I review incoming messages daily and will follow up with you shortly.
+                  Thank you for reaching out. Your message has been accepted by the email delivery service and queued for direct transmission to {PERSONAL_INFO.email}. I review incoming messages daily and will follow up with you shortly.
                 </p>
                 <button
                   type="button"
@@ -236,15 +249,12 @@ export const Contact: React.FC = () => {
               <form 
                 name="contact" 
                 method="POST" 
-                action="/"
-                data-netlify="true" 
-                data-netlify-honeypot="bot-field"
+                action="/.netlify/functions/contact"
                 onSubmit={handleSubmit}
                 className="contact-form-inner"
                 noValidate
               >
-                {/* Netlify Hidden Form Name & Honeypot */}
-                <input type="hidden" name="form-name" value="contact" />
+                {/* Honeypot Spam Trap */}
                 <div style={{ display: 'none' }} aria-hidden="true">
                   <label>
                     Don’t fill this out if you're human:
@@ -260,7 +270,7 @@ export const Contact: React.FC = () => {
 
                 <h3 className="form-title">Send a Direct Message</h3>
                 <p className="form-subtitle">
-                  Direct delivery with zero account sign-in required.
+                  Direct delivery via authenticated SMTP with zero account sign-in required.
                 </p>
 
                 {submitError && submitError !== 'NETWORK_FALLBACK' && (
