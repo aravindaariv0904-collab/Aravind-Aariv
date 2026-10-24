@@ -63,7 +63,8 @@ export const ABOUT_TEXT = {
 export const PROJECTS: Project[] = [
   {
     id: 'bhooraksha',
-    image: '/images/projects/bhooraksha.jpg',
+    image: '/images/projects/bhooraksha-landing.webp',
+    demo: 'https://bhooraksha-public-portal-2026.netlify.app',
     title: 'Bhooraksha',
     subtitle: 'AI-Powered Land Record Digitization and Validation',
     category: 'AI Engineering | Agentic AI | GIS | Digital Governance',
@@ -105,7 +106,8 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'qlearn',
-    image: '/images/projects/qlearn.jpg',
+    image: '/images/projects/qlearn-landing.webp',
+    demo: 'https://qlearn-quantum-aariv.netlify.app',
     title: 'QLearn',
     subtitle: 'Quantum Algorithm Learning and Experimentation Platform',
     category: 'Quantum Computing | Educational Technology | Full-Stack Development',
@@ -145,7 +147,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'talent-ranker',
-    image: '/images/projects/talent-ranker.jpg',
+    image: '/images/projects/talent-ranker-landing.webp',
     title: 'Talent Intelligence Ranker',
     subtitle: 'AI-Powered Semantic Candidate Screening Engine',
     category: 'Generative AI Applications | Semantic Search | NLP',
@@ -164,7 +166,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'resume-ai',
-    image: '/images/projects/resume-ai.jpg',
+    image: '/images/projects/resume-analyzer-landing.webp',
     title: 'AI Resume Analyzer',
     subtitle: 'ATS-Oriented Resume Evaluation & Gap Detection',
     category: 'Generative AI | Full-Stack Development',
@@ -177,7 +179,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'farm-seeva',
-    image: '/images/projects/farm-seeva.jpg',
+    image: '/images/projects/farm-seeva-landing.webp',
     title: 'FARM SEEVA',
     subtitle: 'AI-Enabled Agriculture & Crop Advisory Platform',
     category: 'Applied AI | Agriculture | Full-Stack Development',
@@ -190,7 +192,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'vision-guard',
-    image: '/images/projects/vision-guard.jpg',
+    image: '/images/projects/visionguard-landing.webp',
     title: 'VisionGuard AI',
     subtitle: 'Explainable Image Authenticity & Deepfake Classifier',
     category: 'Computer Vision | Explainable AI',
@@ -203,7 +205,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'split-glass',
-    image: '/images/projects/split-glass.jpg',
+    image: '/images/projects/splitglass-ledger-landing.webp',
     title: 'SplitGlass Ledger',
     subtitle: 'Algorithmic Shared Expense & Debt Simplification',
     category: 'Full-Stack Development | Algorithms | Financial Utilities',
@@ -216,7 +218,8 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'project-hub',
-    image: '/images/projects/project-hub.jpg',
+    image: '/images/projects/projecthub-landing.webp',
+    demo: 'https://aravind-aariv-projecthub.netlify.app',
     title: 'ProjectHub',
     subtitle: 'Student Collaboration & Hackathon Platform',
     category: 'Full-Stack Development | Student Collaboration',
@@ -224,7 +227,7 @@ export const PROJECTS: Project[] = [
     tags: ['React 19', 'Vite', 'Supabase RLS', 'TypeScript'],
     github: 'https://github.com/aravindaariv0904-collab/projecthub2',
     accentColor: '#3b82f6',
-    status: 'Active Codebase (Demo Deployment In Progress)',
+    status: 'Live Deployed Application',
   },
 ];
 
