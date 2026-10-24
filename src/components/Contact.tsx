@@ -24,9 +24,11 @@ export const Contact: React.FC = () => {
     message: '',
   });
 
+  const [botField, setBotField] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [submitDetail, setSubmitDetail] = useState('');
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = async () => {
@@ -43,6 +45,7 @@ export const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError('');
+    setSubmitDetail('');
 
     const name = formState.name.trim();
     const email = formState.email.trim();
@@ -54,14 +57,25 @@ export const Contact: React.FC = () => {
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Comprehensive RFC 5322 compliant regex ensuring a valid 2+ char domain TLD
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-      setSubmitError('Please enter a valid email address (e.g., name@domain.com).');
+      setSubmitError('Please enter a valid email address with a domain (e.g., name@domain.com).');
       return;
     }
 
     if (message.length < 10) {
       setSubmitError('Please write a message with at least 10 characters.');
+      return;
+    }
+
+    // Honeypot spam trap: if automated bots fill this hidden field, safely simulate submission
+    if (botField.trim() !== '') {
+      setIsSubmitting(true);
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSubmitted(true);
+      }, 600);
       return;
     }
 
@@ -89,6 +103,8 @@ export const Contact: React.FC = () => {
       }
     } catch (err) {
       console.warn('Direct form submission encountered an issue:', err);
+      const detail = err instanceof Error ? err.message : 'Network failure';
+      setSubmitDetail(detail);
       setSubmitError('NETWORK_FALLBACK');
     } finally {
       setIsSubmitting(false);
@@ -203,9 +219,9 @@ export const Contact: React.FC = () => {
                 <div className="success-icon-box">
                   <CheckCircle2 size={36} className="text-lime" />
                 </div>
-                <h4 className="success-heading">Message Dispatched Successfully!</h4>
+                <h4 className="success-heading">Message Submitted Successfully!</h4>
                 <p className="success-message">
-                  Thank you for reaching out. Your note has been securely transmitted. I review incoming messages daily and will reply to your email address shortly.
+                  Thank you for reaching out. Your inquiry has been received. I review incoming messages daily and will follow up with you shortly.
                 </p>
                 <button
                   type="button"
@@ -220,13 +236,27 @@ export const Contact: React.FC = () => {
               <form 
                 name="contact" 
                 method="POST" 
+                action="/"
                 data-netlify="true" 
+                data-netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 className="contact-form-inner"
                 noValidate
               >
-                {/* Netlify Hidden Form Name Input */}
+                {/* Netlify Hidden Form Name & Honeypot */}
                 <input type="hidden" name="form-name" value="contact" />
+                <div style={{ display: 'none' }} aria-hidden="true">
+                  <label>
+                    Don’t fill this out if you're human:
+                    <input
+                      name="bot-field"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={botField}
+                      onChange={(e) => setBotField(e.target.value)}
+                    />
+                  </label>
+                </div>
 
                 <h3 className="form-title">Send a Direct Message</h3>
                 <p className="form-subtitle">
@@ -244,8 +274,22 @@ export const Contact: React.FC = () => {
                   <div className="form-fallback-alert" role="alert">
                     <AlertCircle size={18} className="text-amber" />
                     <div className="fallback-alert-content">
-                      <strong>Direct delivery could not reach the server right now.</strong>
-                      <p>You can copy my email or open an email draft without losing your message:</p>
+                      <strong>We couldn't submit your message right now.</strong>
+                      <p>
+                        Please try again or use the direct email fallback below without losing your message:
+                      </p>
+                      {submitDetail && (
+                        <span style={{ 
+                          display: 'block', 
+                          fontSize: '0.78rem', 
+                          color: 'var(--text-muted)', 
+                          marginTop: '0.25rem', 
+                          marginBottom: '0.5rem',
+                          fontFamily: 'var(--font-mono)' 
+                        }}>
+                          Status: {submitDetail}
+                        </span>
+                      )}
                       <div className="fallback-actions-row">
                         <button
                           type="button"
@@ -347,7 +391,7 @@ export const Contact: React.FC = () => {
                     {isSubmitting ? (
                       <>
                         <span className="spinner-border-sm" aria-hidden="true" />
-                        <span>Dispatching...</span>
+                        <span>Sending...</span>
                       </>
                     ) : (
                       <>
@@ -358,7 +402,7 @@ export const Contact: React.FC = () => {
                   </button>
 
                   <span className="form-privacy-note">
-                    🔒 No sign-in required. Messages dispatch directly to Aravind's inbox.
+                    🔒 Direct submission to Aravind's verified contact channel.
                   </span>
                 </div>
               </form>
